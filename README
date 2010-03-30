@@ -1,0 +1,29 @@
+
+LIBDUCK
+~~~~~~~
+
+libduck is a library for the parsing of Daisy 2.02 files for audio books.
+
+DEVELOPERS
+~~~~~~~~~~
+
+Build using traditional ./configure && make commands.
+Try ./configure --help for list of available build options.
+
+ALWAYS consider duck.h as the ONLY public header.
+Private definitions have to go to duck_internals.h
+NEVER use printf(), always use dd_log().
+Check your code for warnings before commits.
+
+Versioning policy
+--
+The major version means no backward compatibility to previous versions (e.g.
+removal of a function from the public API). The minor version means backward
+compatible change (e.g. addition of a function to the public API or extension
+of an existing data structure). The micro version means a noteworthy binary
+compatible change (e.g. new grabber).
+
+AUTHORS
+~~~~~~~
+
+Mathieu Schroeter <mathieu.schroeter@gamesover.ch>
