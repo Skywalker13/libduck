@@ -88,6 +88,7 @@ typedef enum duck_format {
 
 /** \brief Type of result for duck_smilnode_getinfo(). */
 typedef enum duck_smilnode_info {
+  DUCK_SMILNODE_S_ANCHOR, /**< URI/Anchor for the smil file.            */
   DUCK_SMILNODE_S_HEADER, /**< Heading text.                            */
   DUCK_SMILNODE_I_INDEX,  /**< Index (smilpos).                         */
   DUCK_SMILNODE_I_LEVEL,  /**< Level of heading (1-6).                  */

@@ -270,6 +270,11 @@ duck_smilnode_getinfo (duck_t *handle,
 
   switch (sel)
   {
+  case DUCK_SMILNODE_S_ANCHOR:
+    if (smil_n->anchor)
+      res->s = strdup (smil_n->anchor);
+    break;
+
   case DUCK_SMILNODE_S_HEADER:
     if (smil_n->header)
       res->s = strdup (smil_n->header);
