@@ -90,13 +90,13 @@ dd_parser_load (const char *path, duck_format_t format)
   len = strlen (path);
 
   if (format == DUCK_FORMAT_AUTO)
-  for (i = 0; i < ARRAY_NB_ELEMENTS (mapping); i++)
-    if (len >= mapping[i].min_size
-        && !strcmp (path + len - mapping[i].min_size, mapping[i].pattern))
-    {
-      data->format = mapping[i].format;
-      break;
-    }
+    for (i = 0; i < ARRAY_NB_ELEMENTS (mapping); i++)
+      if (len >= mapping[i].min_size
+          && !strcmp (path + len - mapping[i].min_size, mapping[i].pattern))
+      {
+        data->format = mapping[i].format;
+        break;
+      }
 
   switch (data->format)
   {
