@@ -225,7 +225,7 @@ duck_walk (duck_t *handle, int smilpos, int nodepos)
 }
 
 int
-duck_load (duck_t *handle, const char *path)
+duck_load (duck_t *handle, const char *path, duck_format_t format)
 {
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
 
@@ -235,7 +235,7 @@ duck_load (duck_t *handle, const char *path)
   if (handle->data)
     dd_daisydata_free (handle->data);
 
-  handle->data = dd_parser_load (path);
+  handle->data = dd_parser_load (path, format);
   if (!handle->data)
     return -1;
 

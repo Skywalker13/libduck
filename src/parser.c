@@ -64,7 +64,7 @@ dd_parser_smilload (daisydata_t *data)
 #define NCC_STRLEN (sizeof (NCC_PATTERN_L) - 1)
 
 daisydata_t *
-dd_parser_load (const char *path)
+dd_parser_load (const char *path, duck_format_t format)
 {
   daisydata_t *data;
   size_t len;
@@ -86,9 +86,10 @@ dd_parser_load (const char *path)
   if (!data)
     return NULL;
 
-  data->format = DUCK_FORMAT_UNKNOWN;
+  data->format = format;
   len = strlen (path);
 
+  if (format == DUCK_FORMAT_AUTO)
   for (i = 0; i < ARRAY_NB_ELEMENTS (mapping); i++)
     if (len >= mapping[i].min_size
         && !strcmp (path + len - mapping[i].min_size, mapping[i].pattern))
@@ -105,12 +106,17 @@ dd_parser_load (const char *path)
 
   /* 2.02 Daisy book */
   case DUCK_FORMAT_NCC:
-    data->path = strndup (path, len - NCC_STRLEN);
+  {
+    char *it;
+
+    it = strrchr (path, '/');
+    data->path = it ? strndup (path, it - path + 1) : strdup ("./");
     if (!data->path)
       return NULL;
 
     dd_ncc_parse (data, path);
     break;
+  }
 
   default:
     dd_log (DUCK_MSG_WARNING, "the file \"%s\" is unknown", path);

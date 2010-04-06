@@ -81,7 +81,7 @@ typedef enum duck_verb {
 
 /** \brief Format of Digital Talking Book. */
 typedef enum duck_format {
-  DUCK_FORMAT_UNKNOWN = -1,
+  DUCK_FORMAT_AUTO    = -1,
   DUCK_FORMAT_NCC     =  0, /**< Mostly supported (Daisy 2.02).         */
   DUCK_FORMAT_NCX     =  1, /**< Unimplemented.                         */
 } duck_format_t;
@@ -164,9 +164,10 @@ void duck_verbosity (duck_verb_t level);
  * \brief Load a Daisy book.
  *
  * \param[in] handle      Handle.
+ * \param[in] format      File format.
  * \return 0 on success, != 0 on error.
  */
-int duck_load (duck_t *handle, const char *path);
+int duck_load (duck_t *handle, const char *path, duck_format_t format);
 
 /**
  * \brief Retrieve the current smilnode (chapter) and the node (paragraph).

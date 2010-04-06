@@ -22,7 +22,7 @@
 #ifndef DUCK_PARSER_H
 #define DUCK_PARSER_H
 
-daisydata_t *dd_parser_load (const char *path);
+daisydata_t *dd_parser_load (const char *path, duck_format_t format);
 int dd_parser_smilload (daisydata_t *data);
 
 #endif /* DUCK_PARSER_H */

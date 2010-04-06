@@ -19,7 +19,7 @@ main (int argc, char **argv)
   if (!handle)
     return -1;
 
-  duck_load (handle, argv[1]);
+  duck_load (handle, argv[1], DUCK_FORMAT_AUTO);
 
   duck_uninit (handle);
   return 0;
