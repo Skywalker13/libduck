@@ -254,6 +254,32 @@ duck_smilnode_number (duck_t *handle)
 }
 
 int
+duck_book_getinfo (duck_t *handle, duck_book_info_t sel, duck_value_t *res)
+{
+  bookinfo_t *book;
+
+  dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
+
+  if (!handle || !handle->data || !res)
+    return -1;
+
+  book = &handle->data->book_info;
+
+  switch (sel)
+  {
+  case DUCK_BOOK_S_TITLE:
+    if (book->title_text)
+      res->s = strdup (book->title_text);
+    break;
+
+  default:
+    return -1;
+  }
+
+  return 0;
+}
+
+int
 duck_smilnode_getinfo (duck_t *handle,
                        duck_smilnode_info_t sel, duck_value_t *res)
 {

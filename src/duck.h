@@ -86,6 +86,11 @@ typedef enum duck_format {
   DUCK_FORMAT_NCX     =  1, /**< Unimplemented.                         */
 } duck_format_t;
 
+/** \brief Type of result for duck_book_getinfo(). */
+typedef enum duck_book_info {
+  DUCK_BOOK_S_TITLE,    /**< Title of the book.                         */
+} duck_book_info_t;
+
 /** \brief Type of result for duck_smilnode_getinfo(). */
 typedef enum duck_smilnode_info {
   DUCK_SMILNODE_S_ANCHOR, /**< URI/Anchor for the smil file.            */
@@ -206,6 +211,16 @@ int duck_walk (duck_t *handle, int smilpos, int nodepos);
  * \return the number.
  */
 int duck_smilnode_number (duck_t *handle);
+
+/**
+ * \brief Retrieve the informations on the book.
+ *
+ * \param[in] handle      Handle.
+ * \param[in] sel         Type of information.
+ * \param[out] res        Result.
+ * \return 0 for success, != 0 on error.
+ */
+int duck_book_getinfo (duck_t *handle, duck_book_info_t sel, duck_value_t *res);
 
 /**
  * \brief Retrieve the informations on a Smil node.
