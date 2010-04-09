@@ -168,31 +168,6 @@ dd_node_flush (daisydata_t *data)
 }
 
 void
-dd_author_free (authornode_t *author)
-{
-  authornode_t *tmp;
-
-  dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
-
-  while (author)
-  {
-    tmp = author->next;
-    if (author->name)
-      free (author->name);
-    if (author->audio_uri)
-      free (author->audio_uri);
-    if (author->audio_pos_start)
-      free (author->audio_pos_start);
-    if (author->audio_pos_stop)
-      free (author->audio_pos_stop);
-    if (author->image)
-      free (author->image);
-    free (author);
-    author = tmp;
-  }
-}
-
-void
 dd_daisydata_free (daisydata_t *data)
 {
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
@@ -204,8 +179,6 @@ dd_daisydata_free (daisydata_t *data)
     dd_smilnode_free (data->smil_head);
   if (data->node_head)
     dd_node_free (data->node_head);
-  if (data->author_head)
-    dd_author_free (data->author_head);
 
   if (data->book_info.title_text)
     free (data->book_info.title_text);
@@ -219,6 +192,8 @@ dd_daisydata_free (daisydata_t *data)
     free (data->book_info.total_time);
   if (data->book_info.narrator)
     free (data->book_info.narrator);
+  if (data->book_info.author)
+    free (data->book_info.author);
 
   if (data->path)
     free (data->path);

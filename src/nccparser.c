@@ -72,34 +72,10 @@ smilnode_append (daisydata_t *data)
 }
 
 static void
-author_prepend (daisydata_t *data)
-{
-  authornode_t *author;
-
-  author = calloc (1, sizeof (authornode_t));
-  if (!author)
-    return;
-
-  if (data->author_head)
-  {
-    data->author_head->prev = author;
-    author->next = data->author_head;
-    data->author_head = author;
-  }
-  else
-  {
-    data->author_head = author;
-    data->author_tail = author;
-  }
-
-  data->book_info.author = author;
-}
-
-static void
 meta_creator (daisydata_t *data, xmlChar *value)
 {
-  author_prepend (data);
-  data->book_info.author->name = strdup ((char *) value);
+  if (!data->book_info.author)
+    data->book_info.author = strdup ((char *) value);
 }
 
 static void

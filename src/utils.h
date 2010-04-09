@@ -27,7 +27,6 @@ double dd_atof (const char *nptr);
 
 void dd_smilnode_free (smilnode_t *smilnode);
 void dd_node_free (node_t *node);
-void dd_author_free (authornode_t *author);
 void dd_daisydata_free (daisydata_t *data);
 
 void dd_node_flush (daisydata_t *data);

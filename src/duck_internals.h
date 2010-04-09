@@ -61,18 +61,6 @@ typedef struct smilnode_s {
   char *image;
 } smilnode_t;
 
-typedef struct authornode_s {
-  struct authornode_s *next;
-  struct authornode_s *prev;
-
-  char *name;
-  char *audio_uri;
-  char *audio_pos_start;
-  char *audio_pos_stop;
-  char *image;
-  char *total_time;
-} authornode_t;
-
 typedef struct bookinfo_s {
   char *title_text;             /* Title of the book.                     */
   char *title_audio_uri;        /* The source to the audio stream         */
@@ -81,8 +69,7 @@ typedef struct bookinfo_s {
   char *title_image;            /* The source to the book image.          */
   char *total_time;             /* The total time of the book.            */
   char *narrator;
-
-  authornode_t *author;
+  char *author;
 } bookinfo_t;
 
 typedef struct daisydata_s {
@@ -101,10 +88,6 @@ typedef struct daisydata_s {
 
   /* Metadata of the loaded Daisy DTB. */
   bookinfo_t book_info;
-
-  /* Informations of all authors. */
-  authornode_t *author_head;
-  authornode_t *author_tail;
 
   duck_format_t format; /* Book version (like 2.02). */
 
