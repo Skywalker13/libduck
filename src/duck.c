@@ -267,6 +267,11 @@ duck_book_getinfo (duck_t *handle, duck_book_info_t sel, duck_value_t *res)
 
   switch (sel)
   {
+  case DUCK_BOOK_S_NARRATOR:
+    if (book->narrator)
+      res->s = strdup (book->narrator);
+    break;
+
   case DUCK_BOOK_S_TITLE:
     if (book->title_text)
       res->s = strdup (book->title_text);
