@@ -80,6 +80,7 @@ typedef struct bookinfo_s {
   char *title_audio_pos_stop;   /* The time offset to stop playback.      */
   char *title_image;            /* The source to the book image.          */
   char *total_time;             /* The total time of the book.            */
+  char *narrator;
 
   authornode_t *author;
 } bookinfo_t;

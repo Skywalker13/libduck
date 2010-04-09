@@ -110,6 +110,13 @@ meta_title (daisydata_t *data, xmlChar *value)
 }
 
 static void
+meta_narrator (daisydata_t *data, xmlChar *value)
+{
+  if (!data->book_info.narrator)
+   data->book_info.narrator = strdup ((char *) value);
+}
+
+static void
 meta_totaltime (daisydata_t *data, xmlChar *value)
 {
   data->book_info.total_time = strdup ((char *) value);
@@ -149,7 +156,7 @@ static const struct {
   { { "ncc:kByteSize"       },  TYPE_OPTIONAL,     1, NULL                  },
   { { "ncc:maxPageNormal"   },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:multimediaType"  },  TYPE_RECOMMENDED,  1, NULL                  },
-  { { "ncc:narrator"        },  TYPE_RECOMMENDED,  1, NULL                  },
+  { { "ncc:narrator"        },  TYPE_RECOMMENDED,  1, meta_narrator         },
   { { "ncc:pageFront"       },  TYPE_MANDATORY,    1, NULL                  },
   { { "ncc:pageNormal"      },  TYPE_MANDATORY,    1, NULL                  },
   /* FIXME: 'ncc:prodNotes' mandatory if producer's note */

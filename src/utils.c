@@ -217,6 +217,8 @@ dd_daisydata_free (daisydata_t *data)
     free (data->book_info.title_audio_pos_stop);
   if (data->book_info.total_time)
     free (data->book_info.total_time);
+  if (data->book_info.narrator)
+    free (data->book_info.narrator);
 
   if (data->path)
     free (data->path);
