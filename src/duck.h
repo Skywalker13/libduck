@@ -88,6 +88,7 @@ typedef enum duck_format {
 
 /** \brief Type of result for duck_book_getinfo(). */
 typedef enum duck_book_info {
+  DUCK_BOOK_S_AUTHOR,   /**< Author of this book.                       */
   DUCK_BOOK_S_NARRATOR, /**< Narrator of this audio book.               */
   DUCK_BOOK_S_TITLE,    /**< Title of the book.                         */
 } duck_book_info_t;
