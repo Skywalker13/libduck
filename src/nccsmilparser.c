@@ -189,8 +189,9 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
 
   /* fetch the url anchor to the audio file */
-  /* FIXME: check */
   attr = xmlTextReaderGetAttribute (reader, (xmlChar *) "src");
+  if (!attr)
+    goto err;
 
   dd_log (DUCK_MSG_INFO, "smil parsing <audio> audio uri: %s", attr);
 
@@ -200,6 +201,8 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
 
   /* fetch clip-begin */
   attr = xmlTextReaderGetAttribute (reader, (xmlChar *) "clip-begin");
+  if (!attr)
+    goto err;
   value = strtok_r ((char *) attr, "npt=s", &tok);
 
   dd_log (DUCK_MSG_INFO, "smil parsing <audio> clip-begin: %s", value);
@@ -210,6 +213,8 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
 
   /* fetch clip-end */
   attr = xmlTextReaderGetAttribute (reader, (xmlChar *) "clip-end");
+  if (!attr)
+    goto err;
   value = strtok_r ((char *) attr, "npt=s", &tok);
 
   dd_log (DUCK_MSG_INFO, "smil parsing <audio> clip-end: %s", value);
@@ -219,6 +224,10 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
   xmlFree (attr);
 
   return ret;
+
+ err:
+  dd_log (DUCK_MSG_WARNING, "mal-formed <audio> tag");
+  return -1;
 }
 
 static int
