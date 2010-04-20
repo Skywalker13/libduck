@@ -833,6 +833,6 @@ dd_nccsmil_parse (daisydata_t *data)
   dd_chk_free (chk);
   xmlFreeTextReader (reader);
   dd_log (DUCK_MSG_WARNING,
-          "failed to parse SMIL file: %S", data->smil_pos->anchor);
+          "failed to parse SMIL file: %s", data->smil_pos->anchor);
   return -1;
 }
