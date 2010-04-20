@@ -268,18 +268,15 @@ duck_book_getinfo (duck_t *handle, duck_book_info_t sel, duck_value_t *res)
   switch (sel)
   {
   case DUCK_BOOK_S_AUTHOR:
-    if (book->author)
-      res->s = strdup (book->author);
+    res->s = book->author ? strdup (book->author) : NULL;
     break;
 
   case DUCK_BOOK_S_NARRATOR:
-    if (book->narrator)
-      res->s = strdup (book->narrator);
+    res->s = book->narrator ? strdup (book->narrator) : NULL;
     break;
 
   case DUCK_BOOK_S_TITLE:
-    if (book->title_text)
-      res->s = strdup (book->title_text);
+    res->s = book->title_text ? strdup (book->title_text) : NULL;
     break;
 
   default:
@@ -307,13 +304,11 @@ duck_smilnode_getinfo (duck_t *handle,
   switch (sel)
   {
   case DUCK_SMILNODE_S_ANCHOR:
-    if (smil_n->anchor)
-      res->s = strdup (smil_n->anchor);
+    res->s = smil_n->anchor ? strdup (smil_n->anchor) : NULL;
     break;
 
   case DUCK_SMILNODE_S_HEADER:
-    if (smil_n->header)
-      res->s = strdup (smil_n->header);
+    res->s = smil_n->header ? strdup (smil_n->header) : NULL;
     break;
 
   case DUCK_SMILNODE_I_INDEX:
@@ -353,8 +348,7 @@ duck_node_getinfo (duck_t *handle,
   switch (sel)
   {
   case DUCK_NODE_S_AUDIO_URI:
-    if (node_n->audio_uri)
-      res->s = strdup (node_n->audio_uri);
+    res->s = node_n->audio_uri ? strdup (node_n->audio_uri) : NULL;
     break;
 
   case DUCK_NODE_I_AUDIO_POS_START:
