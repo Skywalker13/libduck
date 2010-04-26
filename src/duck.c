@@ -239,7 +239,7 @@ duck_load (duck_t *handle, const char *path, duck_format_t format)
   if (!handle->data)
     return -1;
 
-  return 0;
+  return handle->data->integrity;
 }
 
 int

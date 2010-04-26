@@ -173,7 +173,7 @@ void duck_verbosity (duck_verb_t level);
  *
  * \param[in] handle      Handle.
  * \param[in] format      File format.
- * \return 0 on success, != 0 on error.
+ * \return 0 on success, < 0 on error, 1 if the parsing has failed somewhere.
  */
 int duck_load (duck_t *handle, const char *path, duck_format_t format);
 

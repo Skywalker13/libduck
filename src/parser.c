@@ -107,6 +107,7 @@ dd_parser_load (const char *path, duck_format_t format)
   /* 2.02 Daisy book */
   case DUCK_FORMAT_NCC:
   {
+    int rc;
     char *it;
 
     it = strrchr (path, '/');
@@ -114,7 +115,8 @@ dd_parser_load (const char *path, duck_format_t format)
     if (!data->path)
       return NULL;
 
-    dd_ncc_parse (data, path);
+    rc = dd_ncc_parse (data, path);
+    data->integrity = !!rc;
     break;
   }
 

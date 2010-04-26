@@ -94,6 +94,8 @@ typedef struct daisydata_s {
   int smilfound;  /* smilparser: check if a Smil file is already presents. */
   char *path;     /* Directory of the loaded DTB. */
 
+  int integrity;  /* 1 if the parsing has failed somewhere, 0 if ok */
+
 } daisydata_t;
 
 struct duck_s {
