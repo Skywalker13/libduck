@@ -242,8 +242,12 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
 
   /* get href */
-  /* TODO: what if attribute does not exist? */
   smilsrc = xmlTextReaderGetAttribute (reader, (xmlChar *) "href");
+  if (!smilsrc)
+  {
+    dd_log (DUCK_MSG_WARNING, "mal-formed <a> tag");
+    return -1;
+  }
 
   tmp = (xmlChar *) strtok_r ((char *) smilsrc, "#", &tok);
   dd_log (DUCK_MSG_INFO, "ncc parsing <a> file anchor: %s", tmp);
