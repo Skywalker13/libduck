@@ -1,0 +1,10 @@
+Document: libduck-documentation
+Title: libduck Documentation
+Author: Mathieu Schroeter <mathieu.schroeter@gamesover.ch>
+Abstract: This manual describes libduck API
+Section: Programming
+
+Format: HTML
+Index: /usr/share/doc/libduck-dev/html/index.html
+Files: /usr/share/doc/libduck-dev/html/*.html
+

@@ -1,0 +1,44 @@
+Source: libduck
+Section: misc
+Priority: optional
+Maintainer: Mathieu Schroeter <mathieu.schroeter@gamesover.ch>
+Build-Depends: debhelper (>= 7.0.50), pkg-config (>= 0.20), libxml2-dev (>= 2.6), doxygen
+Standards-Version: 3.8.4
+Homepage: http://daisy.geexbox.org
+Vcs-Hg: http://hg.geexbox.org/libduck
+Vcs-Browser: http://hg.geexbox.org/libduck/summary
+
+Package: libduck1
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: a Daisy 2.02 parser API
+ libduck is a C library for parsing DTB (Digital Talking Book).
+ Currently, only the Daisy 2.02 format is supported.
+ .
+ This package contains the libduck1, which provides the API for
+ the DTB parsing.
+
+Package: libduck-dev
+Section: devel
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libduck1 (= ${binary:Version}),
+Description: a Daisy 2.02 parser API, development files
+ libduck is a C library for parsing DTB (Digital Talking Book).
+ Currently, only the Daisy 2.02 format is supported.
+ .
+ This package contains the development files for libduck1  and the
+ corresponding documentation.
+
+Package: libduck-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libduck1 (= ${binary:Version}),
+Description: a Daisy 2.02 parser API, debug symbols
+ libduck is a C library for parsing DTB (Digital Talking Book).
+ Currently, only the Daisy 2.02 format is supported.
+ .
+ This package contains the debug symbols of libduck1.

@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	./configure --prefix=/usr \
+	            --enable-static \
+	            --enable-shared \
+	            --disable-strip \
+	            --enable-debug \
+	            --enable-doc \
+	            --enable-pic
+
+override_dh_strip:
+	dh_strip --dbg-package=libduck-dbg
