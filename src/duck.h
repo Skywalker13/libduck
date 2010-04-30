@@ -172,6 +172,7 @@ void duck_verbosity (duck_verb_t level);
  * \brief Load a Daisy book.
  *
  * \param[in] handle      Handle.
+ * \param[in] path        Path on the Daisy (NCC) file.
  * \param[in] format      File format.
  * \return 0 on success, < 0 on error, 1 if the parsing has failed somewhere.
  */
