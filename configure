@@ -834,6 +834,7 @@ check_cppflags -D_FILE_OFFSET_BITS=64
 check_cppflags -D_REENTRANT
 
 # default extralibs
+add_extralibs -lm && add_pkgconfig_libs -lm
 
 #################################################
 #   check for functions availability
