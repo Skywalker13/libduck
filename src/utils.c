@@ -25,6 +25,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
+#include <time.h>
 
 #include "duck.h"
 #include "duck_internals.h"
@@ -86,16 +87,17 @@ dd_atof (const char *nptr)
   return integer + frac / div;
 }
 
-time_t
-dd_strtime2epoch (const char *time)
+int
+dd_strtime2int (const char *time)
 {
   struct tm tm;
 
   if (!time)
     return 0;
 
+  memset (&tm, 0, sizeof (tm));
   strptime (time, "%H:%M:%S", &tm);
-  return mktime (&tm);
+  return tm.tm_hour * 3600 + tm.tm_min * 60 + tm.tm_sec;
 }
 
 void

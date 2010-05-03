@@ -280,7 +280,7 @@ duck_book_getinfo (duck_t *handle, duck_book_info_t sel, duck_value_t *res)
     break;
 
   case DUCK_BOOK_I_DURATION:
-    res->i = (int) dd_strtime2epoch (book->total_time);
+    res->i = dd_strtime2int (book->total_time);
     break;
 
   default:
