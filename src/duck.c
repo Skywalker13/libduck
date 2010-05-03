@@ -279,6 +279,10 @@ duck_book_getinfo (duck_t *handle, duck_book_info_t sel, duck_value_t *res)
     res->s = book->title_text ? strdup (book->title_text) : NULL;
     break;
 
+  case DUCK_BOOK_I_DURATION:
+    res->i = (int) dd_strtime2epoch (book->total_time);
+    break;
+
   default:
     return -1;
   }

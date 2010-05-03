@@ -91,6 +91,7 @@ typedef enum duck_book_info {
   DUCK_BOOK_S_AUTHOR,   /**< Author of this book.                       */
   DUCK_BOOK_S_NARRATOR, /**< Narrator of this audio book.               */
   DUCK_BOOK_S_TITLE,    /**< Title of the book.                         */
+  DUCK_BOOK_I_DURATION, /**< Duration of the book.                      */
 } duck_book_info_t;
 
 /** \brief Type of result for duck_smilnode_getinfo(). */
