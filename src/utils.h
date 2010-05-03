@@ -22,8 +22,11 @@
 #ifndef DUCK_UITLS_H
 #define DUCK_UTILS_H
 
+#include <time.h>
+
 char *dd_trimwhitespaces (const char *str);
 double dd_atof (const char *nptr);
+time_t dd_strtime2epoch (const char *time);
 
 void dd_smilnode_free (smilnode_t *smilnode);
 void dd_node_free (node_t *node);

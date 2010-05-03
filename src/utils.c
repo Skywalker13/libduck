@@ -19,6 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -83,6 +84,18 @@ dd_atof (const char *nptr)
 
   div *= pow (10.0, end - start);
   return integer + frac / div;
+}
+
+time_t
+dd_strtime2epoch (const char *time)
+{
+  struct tm tm;
+
+  if (!time)
+    return 0;
+
+  strptime (time, "%H:%M:%S", &tm);
+  return mktime (&tm);
 }
 
 void
