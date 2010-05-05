@@ -71,46 +71,46 @@ typedef struct duck_s duck_t;
 
 /** \brief Verbosity level. */
 typedef enum duck_verb {
-  DUCK_MSG_NONE,     /**< No error messages.                            */
-  DUCK_MSG_VERBOSE,  /**< Super-verbose mode: mostly for debugging.     */
-  DUCK_MSG_INFO,     /**< Working operations.                           */
-  DUCK_MSG_WARNING,  /**< Harmless failures.                            */
-  DUCK_MSG_ERROR,    /**< May result in hazardous behavior.             */
-  DUCK_MSG_CRITICAL, /**< Prevents lib from working.                    */
+  DUCK_MSG_NONE,     /**< No error messages.                                  */
+  DUCK_MSG_VERBOSE,  /**< Super-verbose mode: mostly for debugging.           */
+  DUCK_MSG_INFO,     /**< Working operations.                                 */
+  DUCK_MSG_WARNING,  /**< Harmless failures.                                  */
+  DUCK_MSG_ERROR,    /**< May result in hazardous behavior.                   */
+  DUCK_MSG_CRITICAL, /**< Prevents lib from working.                          */
 } duck_verb_t;
 
 /** \brief Format of Digital Talking Book. */
 typedef enum duck_format {
   DUCK_FORMAT_AUTO    = -1,
-  DUCK_FORMAT_NCC     =  0, /**< Mostly supported (Daisy 2.02).         */
-  DUCK_FORMAT_NCX     =  1, /**< Unimplemented.                         */
+  DUCK_FORMAT_NCC     =  0, /**< Mostly supported (Daisy 2.02).               */
+  DUCK_FORMAT_NCX     =  1, /**< Unimplemented.                               */
 } duck_format_t;
 
 /** \brief Type of result for duck_book_getinfo(). */
 typedef enum duck_book_info {
-  DUCK_BOOK_S_AUTHOR,   /**< Author of this book.                       */
-  DUCK_BOOK_S_NARRATOR, /**< Narrator of this audio book.               */
-  DUCK_BOOK_S_TITLE,    /**< Title of the book.                         */
-  DUCK_BOOK_I_DURATION, /**< Duration of the book.                      */
+  DUCK_BOOK_S_AUTHOR,   /**< Author of this book.                             */
+  DUCK_BOOK_S_NARRATOR, /**< Narrator of this audio book.                     */
+  DUCK_BOOK_S_TITLE,    /**< Title of the book.                               */
+  DUCK_BOOK_I_DURATION, /**< Duration of the book.                            */
 } duck_book_info_t;
 
 /** \brief Type of result for duck_smilnode_getinfo(). */
 typedef enum duck_smilnode_info {
-  DUCK_SMILNODE_S_ANCHOR, /**< URI/Anchor for the smil file.            */
-  DUCK_SMILNODE_S_HEADER, /**< Heading text.                            */
-  DUCK_SMILNODE_I_DURATION,     /**< Duration for the smilnode.             */
-  DUCK_SMILNODE_I_ELAPSEDTIME,  /**< Total elapsed time prior to this smil. */
-  DUCK_SMILNODE_I_INDEX,  /**< Index (smilpos).                         */
-  DUCK_SMILNODE_I_LEVEL,  /**< Level of heading (1-6).                  */
-  DUCK_SMILNODE_I_TYPE,   /**< Type of smilnode ::duck_smilnode_type_t. */
+  DUCK_SMILNODE_S_ANCHOR,       /**< URI/Anchor for the smil file.            */
+  DUCK_SMILNODE_S_HEADER,       /**< Heading text.                            */
+  DUCK_SMILNODE_I_DURATION,     /**< Duration for the smilnode.               */
+  DUCK_SMILNODE_I_ELAPSEDTIME,  /**< Total elapsed time prior to this smil.   */
+  DUCK_SMILNODE_I_INDEX,        /**< Index (smilpos).                         */
+  DUCK_SMILNODE_I_LEVEL,        /**< Level of heading (1-6).                  */
+  DUCK_SMILNODE_I_TYPE,         /**< Type of smilnode ::duck_smilnode_type_t. */
 } duck_smilnode_info_t;
 
 /** \brief Type of result for duck_node_getinfo(). */
 typedef enum duck_node_info {
-  DUCK_NODE_S_AUDIO_URI,        /**< URI for the node.                  */
-  DUCK_NODE_I_AUDIO_POS_START,  /**< Start position of the node [ms].   */
-  DUCK_NODE_I_AUDIO_POS_STOP,   /**< Stop position of the node [ms].    */
-  DUCK_NODE_I_INDEX,            /**< Index (smilnode).                  */
+  DUCK_NODE_S_AUDIO_URI,        /**< URI for the node.                        */
+  DUCK_NODE_I_AUDIO_POS_START,  /**< Start position of the node [ms].         */
+  DUCK_NODE_I_AUDIO_POS_STOP,   /**< Stop position of the node [ms].          */
+  DUCK_NODE_I_INDEX,            /**< Index (smilnode).                        */
 } duck_node_info_t;
 
 typedef enum duck_smilnode_type {
