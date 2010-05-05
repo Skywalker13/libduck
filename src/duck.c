@@ -315,6 +315,18 @@ duck_smilnode_getinfo (duck_t *handle,
     res->s = smil_n->header ? strdup (smil_n->header) : NULL;
     break;
 
+  case DUCK_SMILNODE_I_DURATION:
+    if (!smil_n->time)
+      return -1;
+    res->i = dd_strtime2int (smil_n->time);
+    break;
+
+  case DUCK_SMILNODE_I_ELAPSEDTIME:
+    if (!smil_n->elapsed_time)
+      return -1;
+    res->i = dd_strtime2int (smil_n->elapsed_time);
+    break;
+
   case DUCK_SMILNODE_I_INDEX:
     res->i = smil_n->item_id;
     break;

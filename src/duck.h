@@ -98,6 +98,8 @@ typedef enum duck_book_info {
 typedef enum duck_smilnode_info {
   DUCK_SMILNODE_S_ANCHOR, /**< URI/Anchor for the smil file.            */
   DUCK_SMILNODE_S_HEADER, /**< Heading text.                            */
+  DUCK_SMILNODE_I_DURATION,     /**< Duration for the smilnode.             */
+  DUCK_SMILNODE_I_ELAPSEDTIME,  /**< Total elapsed time prior to this smil. */
   DUCK_SMILNODE_I_INDEX,  /**< Index (smilpos).                         */
   DUCK_SMILNODE_I_LEVEL,  /**< Level of heading (1-6).                  */
   DUCK_SMILNODE_I_TYPE,   /**< Type of smilnode ::duck_smilnode_type_t. */
