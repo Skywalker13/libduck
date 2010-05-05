@@ -59,6 +59,8 @@ typedef struct smilnode_s {
   char *fragment_identifier;
   char *text_passage;
   char *image;
+  char *time;                   /* Total time of this smil.               */
+  char *elapsed_time;           /* Total elapsed time in this smil.       */
 } smilnode_t;
 
 typedef struct bookinfo_s {

@@ -245,26 +245,87 @@ smil_parse_region (xmlTextReaderPtr reader, dd_unused daisydata_t *data)
   return ret;
 }
 
-static int
-smil_parse_meta (xmlTextReaderPtr reader,
-                 dd_unused daisydata_t *data, dd_unused chk_t *chk)
+static void
+meta_timeinthissmil (daisydata_t *data, xmlChar *value)
 {
-  int ret = 1;
-  /*
-   * Attributes:
-   *  ncc:generator ?
-   *  dc:format
-   *  dc:identifier ?
-   *  dc:title ?
-   *  title ?
-   *  ncc:totalElapsedTime ?
-   *  ncc:timeInThisSmil ?
-   */
+  data->smil_pos->time = strdup ((char *) value);
+}
+
+static void
+meta_totalelapsedtime (daisydata_t *data, xmlChar *value)
+{
+  data->smil_pos->elapsed_time = strdup ((char *) value);
+}
+
+/* The number of items in this array must be <= 64 */
+static const struct {
+  const char *str[4]; /* last ptr must be NULL */
+  dd_type_t type;
+  int qty;
+  void (*fct) (daisydata_t *data, xmlChar *value);
+} dd_metamap[] = {
+  /* TODO: check all entries in the array */
+  { { "dc:format",
+      "format"                },  TYPE_MANDATORY,   1, NULL                   },
+  { { "dc:identifier"         },  TYPE_RECOMMENDED, 1, NULL                   },
+  { { "dc:title"              },  TYPE_OPTIONAL,    1, NULL                   },
+  { { "ncc:generator"         },  TYPE_OPTIONAL,    1, NULL                   },
+  { { "ncc:timeInThisSmil",
+      "time-in-this-smil"     },  TYPE_RECOMMENDED, 1, meta_timeinthissmil    },
+  { { "ncc:totalElapsedTime",
+      "total-elapsed-time"    },  TYPE_RECOMMENDED, 1, meta_totalelapsedtime  },
+  { { "title"                 },  TYPE_OPTIONAL,    1, NULL                   },
+};
+
+/* TODO: this function _must_ be factorized with ncc_parse_meta()! */
+static int
+smil_parse_meta (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
+{
+  uint8_t i;
+  xmlChar *attrvalue = NULL, *attrcontent = NULL;
 
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
 
-  ret = xmlTextReaderRead (reader);
-  return ret;
+  attrvalue = xmlTextReaderGetAttribute (reader, (xmlChar *) "name");
+  if (!attrvalue)
+    goto out;
+
+  attrcontent = xmlTextReaderGetAttribute (reader, (xmlChar *) "content");
+  if (!attrcontent)
+    goto out;
+
+  for (i = 0; i < ARRAY_NB_ELEMENTS (dd_metamap); i++)
+  {
+    uint8_t j;
+    for (j = 0; dd_metamap[i].str[j]; j++)
+      if (!strcmp (dd_metamap[i].str[j], (char *) attrvalue))
+        break;
+
+    if (!dd_metamap[i].str[j])
+      continue;
+
+    dd_chk_ok (chk, "meta", i);
+
+    if (!dd_metamap[i].fct)
+      break;
+
+    dd_log (DUCK_MSG_INFO,
+            "parsing of <meta> %s : %s", attrvalue, attrcontent);
+    dd_metamap[i].fct (data, attrcontent);
+
+    if (j) /* syntax obsolete ? */
+      dd_log (DUCK_MSG_WARNING,
+              "<meta> %s should be rewritten to %s",
+              attrvalue, dd_metamap[i].str[j]);
+    break;
+  }
+
+ out:
+  if (attrvalue)
+    xmlFree (attrvalue);
+  if (attrcontent)
+    xmlFree (attrcontent);
+  return xmlTextReaderRead (reader);
 }
 
 static int smil_parse_par (xmlTextReaderPtr reader,
@@ -725,6 +786,13 @@ smil_parse_head (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
       return 0;
   }
 
+  /*
+   * Special check for properties, it is necessary to wait that the whole
+   * metadata are parsed.
+   */
+  NCC_CHECK (chk, "meta", dd_metamap, *)
+  dd_chk_flush (chk, "meta");
+
   NCC_CHECK (chk, "head",   dd_headmap, )
   dd_chk_flush (chk, "head");
 
@@ -795,6 +863,7 @@ dd_nccsmil_parse (daisydata_t *data)
   dd_chk_add (chk, "root");
   dd_chk_add (chk, "head");
   dd_chk_add (chk, "body");
+  dd_chk_add (chk, "meta");
   dd_chk_add (chk, "layout");
   dd_chk_add (chk, "mainseq");
   dd_chk_add (chk, "par");

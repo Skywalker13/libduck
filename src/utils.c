@@ -123,6 +123,10 @@ dd_smilnode_free (smilnode_t *smilnode)
       free (smilnode->text_passage);
     if (smilnode->image)
       free (smilnode->image);
+    if (smilnode->time)
+      free (smilnode->time);
+    if (smilnode->elapsed_time)
+      free (smilnode->elapsed_time);
     free (smilnode);
     smilnode = tmp;
   }
