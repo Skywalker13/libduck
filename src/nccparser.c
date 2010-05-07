@@ -305,8 +305,8 @@ ncc_parse_common (xmlTextReaderPtr reader,
 
   while (xmlStrcasecmp (name, tag))
   {
-  if (!strcasecmp ((char *) name, "a"))
-    ret = ncc_parse_a (reader, smilnode);
+    if (!strcasecmp ((char *) name, "a"))
+      ret = ncc_parse_a (reader, smilnode);
     else if (*name != '#') /* only <a> is valid */
       return -1;
 
