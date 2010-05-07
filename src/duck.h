@@ -201,6 +201,19 @@ int duck_getpos (duck_t *handle, int *smilpos, int *nodepos);
 int duck_getheading (duck_t *handle, duck_hx_t *hx);
 
 /**
+ * \brief Go to a specific chapter.
+ *
+ * This function tries to go to the first paragraph for the chapter
+ * accordingly to the fragment identifier if available. Otherwise the
+ * behaviour is the same that duck_walk(handle, smilpos, 1).
+ *
+ * \param[in] handle      Handle.
+ * \param[in] smilpos     Chapter position.
+ * \return 0 for success, != 0 on error.
+ */
+int duck_walk_smil (duck_t *handle, int smilpos);
+
+/**
  * \brief Go to a specific chapter and paragraph.
  *
  * \param[in] handle      Handle.

@@ -160,6 +160,38 @@ duck_getheading (duck_t *handle, duck_hx_t *hx)
 }
 
 int
+duck_walk_smil (duck_t *handle, int smilpos)
+{
+  int rc;
+  node_t *node_n;
+
+  dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
+
+  if (!handle || !handle->data)
+    return -1;
+
+  rc = duck_walk (handle, smilpos, 1);
+  if (rc)
+    return rc;
+
+  node_n = handle->data->node_head;
+  if (!node_n || !handle->data->smil_pos->fragment_identifier)
+    return 0;
+
+  for (; node_n; node_n = node_n->next)
+    if (node_n->fragment_identifier
+        && !strcmp (handle->data->smil_pos->fragment_identifier,
+                    node_n->fragment_identifier))
+      break;
+
+  if (!node_n)
+    return 0;
+
+  handle->data->node_pos = node_n;
+  return 0;
+}
+
+int
 duck_walk (duck_t *handle, int smilpos, int nodepos)
 {
   unsigned int direction;
