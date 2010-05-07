@@ -202,7 +202,7 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
   /* fetch clip-begin */
   attr = xmlTextReaderGetAttribute (reader, (xmlChar *) "clip-begin");
   if (!attr)
-    goto err;
+    goto out;
   value = strtok_r ((char *) attr, "npt=s", &tok);
 
   dd_log (DUCK_MSG_INFO, "smil parsing <audio> clip-begin: %s", value);
@@ -223,6 +223,7 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
   tmp_node->audio_pos_stop = (int) (dd_atof (value) * 1000);
   xmlFree (attr);
 
+ out:
   return ret;
 
  err:
