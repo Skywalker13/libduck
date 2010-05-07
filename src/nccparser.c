@@ -277,15 +277,12 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
   }
 
   ret = xmlTextReaderRead (reader);
-  if (ret != 1)
-    return ret;
-
-  ret = xmlTextReaderRead (reader);
   return ret;
 }
 
 static int
-ncc_parse_common (xmlTextReaderPtr reader, smilnode_t *smilnode)
+ncc_parse_common (xmlTextReaderPtr reader,
+                  smilnode_t *smilnode, const xmlChar *tag)
 {
   const xmlChar *name = NULL;
   xmlChar *attrvalue = NULL;
@@ -306,10 +303,21 @@ ncc_parse_common (xmlTextReaderPtr reader, smilnode_t *smilnode)
   if (!name)
     return 0;
 
+  while (xmlStrcasecmp (name, tag))
+  {
   if (!strcasecmp ((char *) name, "a"))
     ret = ncc_parse_a (reader, smilnode);
-  else
-    ret = -1;
+    else if (*name != '#') /* only <a> is valid */
+      return -1;
+
+    ret = xmlTextReaderRead (reader);
+    if (ret != 1)
+      break;
+
+    name = xmlTextReaderConstName (reader);
+    if (!name)
+      return 0;
+  }
 
   return ret;
 }
@@ -326,28 +334,28 @@ ncc_parse_hx (xmlTextReaderPtr reader,
 
   smilnode->type  = DUCK_SMILNODE_HEADING;
   smilnode->level = (int) ((char) name[1] - 48);
-  return ncc_parse_common (reader, smilnode);
+  return ncc_parse_common (reader, smilnode, name);
 }
 
 static int
 ncc_parse_span (xmlTextReaderPtr reader,
-                smilnode_t *smilnode, dd_unused const xmlChar *name)
+                smilnode_t *smilnode, const xmlChar *name)
 {
   /* Span must contain id and class attributes */
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
 
   smilnode->type = DUCK_SMILNODE_PAGE;
-  return ncc_parse_common (reader, smilnode);
+  return ncc_parse_common (reader, smilnode, name);
 }
 
 static int
 ncc_parse_div (xmlTextReaderPtr reader,
-               smilnode_t *smilnode, dd_unused const xmlChar *name)
+               smilnode_t *smilnode, const xmlChar *name)
 {
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
 
   smilnode->type = DUCK_SMILNODE_BLOCK;
-  return ncc_parse_common (reader, smilnode);
+  return ncc_parse_common (reader, smilnode, name);
 }
 
 static const struct {
