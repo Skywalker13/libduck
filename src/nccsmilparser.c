@@ -276,7 +276,6 @@ static const struct {
   int qty;
   void (*fct) (daisydata_t *data, xmlChar *value);
 } dd_metamap[] = {
-  /* TODO: check all entries in the array */
   { { "dc:format",
       "format"                },  TYPE_MANDATORY,   1, NULL                   },
   { { "dc:identifier"         },  TYPE_RECOMMENDED, 1, NULL                   },
@@ -423,7 +422,6 @@ static const struct {
   int (*fct) (xmlTextReaderPtr reader,
               daisydata_t *data, node_t *tmp_node, chk_t *chk);
 } dd_parmap[] = {
-  /* TODO: check all entries in the array */
   { "text",     TYPE_MANDATORY,  1,  smil_parse_text      },
   { "audio",    TYPE_OPTIONAL,   1,  smil_parse_audio     },
   { "seq",      TYPE_OPTIONAL,  -1,  smil_parse_nestedseq },
@@ -534,7 +532,6 @@ static const struct {
   int qty;
   int (*fct) (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk);
 } dd_mainseqmap[] = {
-  /* TODO: check all entries in the array */
   { "par",      TYPE_MANDATORY, -1,  smil_parse_par         },
   { "seq",      TYPE_OPTIONAL,  -1,  smil_parse_nestedseq_n },
 };
@@ -607,7 +604,6 @@ static const struct {
   int qty;
   int (*fct) (xmlTextReaderPtr reader, daisydata_t *data);
 } dd_layoutmap[] = {
-  /* TODO: check all entries in the array */
   { "region",     TYPE_MANDATORY,  1,  smil_parse_region },
 };
 
@@ -679,7 +675,6 @@ static const struct {
   int qty;
   int (*fct) (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk);
 } dd_bodymap[] = {
-  /* TODO: check all entries in the array */
   { "seq",      TYPE_MANDATORY,  1,  smil_mainseq    },
 };
 
@@ -744,8 +739,7 @@ static const struct {
   int qty;
   int (*fct) (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk);
 } dd_headmap[] = {
-  /* TODO: check all entries in the array */
-  { "layout",   TYPE_MANDATORY,  1,  smil_parse_layout },
+  { "layout",   TYPE_OPTIONAL,   1,  smil_parse_layout },
   { "meta",     TYPE_MANDATORY, -1,  smil_parse_meta   },
 };
 
@@ -824,7 +818,6 @@ static const struct {
   int qty;
   int (*fct) (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk);
 } dd_rootmap[] = {
-  /* TODO: check all entries in the array */
   { "smil",     TYPE_MANDATORY,  0,  NULL            },
   { "head",     TYPE_MANDATORY,  1,  smil_parse_head },
   { "body",     TYPE_MANDATORY,  1,  smil_parse_body },
