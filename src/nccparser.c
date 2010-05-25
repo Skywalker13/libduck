@@ -250,6 +250,7 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
   }
 
   tmp = (xmlChar *) strtok_r ((char *) smilsrc, "#", &tok);
+  xmlFree (smilsrc);
   if (!tmp)
     goto err;
 
@@ -267,9 +268,6 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
   ret = xmlTextReaderRead (reader);
   if (ret != 1)
     return ret;
-
-  if (smilsrc)
-    xmlFree (smilsrc);
 
   if (xmlTextReaderHasValue (reader))
   {
