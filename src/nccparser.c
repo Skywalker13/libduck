@@ -250,7 +250,6 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
   }
 
   tmp = (xmlChar *) strtok_r ((char *) smilsrc, "#", &tok);
-  xmlFree (smilsrc);
   if (!tmp)
     goto err;
 
@@ -267,7 +266,7 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
 
   ret = xmlTextReaderRead (reader);
   if (ret != 1)
-    return ret;
+    goto out;
 
   if (xmlTextReaderHasValue (reader))
   {
@@ -281,9 +280,12 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
   }
 
   ret = xmlTextReaderRead (reader);
+ out:
+  xmlFree (smilsrc);
   return ret;
 
  err:
+  xmlFree (smilsrc);
   dd_log (DUCK_MSG_WARNING, "mal-formed <a> tag");
   return -1;
 }

@@ -146,7 +146,6 @@ smil_parse_text (xmlTextReaderPtr reader,
    * get the anchor url
    */
   textsrc = strtok_r ((char *) attr, "#", &tok);
-  xmlFree (attr);
   if (!textsrc)
     goto err;
 
@@ -174,10 +173,12 @@ smil_parse_text (xmlTextReaderPtr reader,
   dd_log (DUCK_MSG_WARNING, "XHTML parser for SMIL (unimplemented)");
 #endif /* !0 */
 
+  xmlFree (attr);
   return ret;
 
  err:
   dd_log (DUCK_MSG_WARNING, "mal-formed <text> tag");
+  xmlFree (attr);
   return -1;
 }
 
@@ -207,7 +208,6 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
 
   /* storing the audio file_name */
   tmp_node->audio_uri = strdup ((char *) attr);
-  xmlFree (attr);
 
   /* fetch clip-begin */
   attr = xmlTextReaderGetAttribute (reader, (xmlChar *) "clip-begin");
@@ -231,13 +231,14 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
 
   /* storing clip-end */
   tmp_node->audio_pos_stop = (int) (dd_atof (value) * 1000);
-  xmlFree (attr);
 
  out:
+  xmlFree (attr);
   return ret;
 
  err:
   dd_log (DUCK_MSG_WARNING, "mal-formed <audio> tag");
+  xmlFree (attr);
   return -1;
 }
 
