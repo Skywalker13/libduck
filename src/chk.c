@@ -25,11 +25,12 @@
 
 #include "chk.h"
 
+#define CHK_LIMIT 64
 
 struct chk_s {
   struct tag_s {
     char     *tag;
-    uint8_t   chk[64];
+    uint8_t   chk[CHK_LIMIT];
     uint8_t   nb;
   } *tags;
 };
@@ -109,7 +110,7 @@ dd_chk_ok (chk_t *chk, const char *tag, uint8_t pos)
   if (!chk || !chk->tags || !tag)
     return 0;
 
-  if (pos >= 64)
+  if (pos >= CHK_LIMIT)
     return 0;
 
   for (it = chk->tags; it->tag; it++)
@@ -130,7 +131,7 @@ dd_chk_read (chk_t *chk, const char *tag, uint8_t pos)
   if (!chk || !chk->tags || !tag)
     return 0;
 
-  if (pos >= 64)
+  if (pos >= CHK_LIMIT)
     return 0;
 
   for (it = chk->tags; it->tag; it++)
