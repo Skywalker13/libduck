@@ -146,6 +146,8 @@ smil_parse_text (xmlTextReaderPtr reader,
    * get the anchor url
    */
   textsrc = strtok_r ((char *) attr, "#", &tok);
+  if (!textsrc)
+    goto err;
 
   dd_log (DUCK_MSG_INFO, "smil parsing <text> XMLFile: %s", textsrc);
 
@@ -154,6 +156,8 @@ smil_parse_text (xmlTextReaderPtr reader,
 
   /* get the fragment identifier */
   fragment = strtok_r (NULL, "#", &tok);
+  if (!fragment)
+    goto err;
 
   dd_log (DUCK_MSG_VERBOSE,
           "smil parsing <text> fragment identifier: %s", fragment);
@@ -173,6 +177,10 @@ smil_parse_text (xmlTextReaderPtr reader,
     xmlFree (attr);
 
   return ret;
+
+ err:
+  dd_log (DUCK_MSG_WARNING, "mal-formed <text> tag");
+  return -1;
 }
 
 static int
