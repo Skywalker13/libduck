@@ -250,11 +250,17 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
   }
 
   tmp = (xmlChar *) strtok_r ((char *) smilsrc, "#", &tok);
+  if (!tmp)
+    goto err;
+
   dd_log (DUCK_MSG_INFO, "ncc parsing <a> file anchor: %s", tmp);
   smilnode->anchor = strdup ((char *) tmp);
 
   /* get identifier */
   tmp = (xmlChar *) strtok_r (NULL, "#", &tok);
+  if (!tmp)
+    goto err;
+
   dd_log (DUCK_MSG_INFO, "ncc parsing <a> fragment identifier: %s", tmp);
   smilnode->fragment_identifier = strdup ((char *) tmp);
 
@@ -278,6 +284,10 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
 
   ret = xmlTextReaderRead (reader);
   return ret;
+
+ err:
+  dd_log (DUCK_MSG_WARNING, "mal-formed <a> tag");
+  return -1;
 }
 
 static int
