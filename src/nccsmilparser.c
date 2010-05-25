@@ -134,8 +134,12 @@ smil_parse_text (xmlTextReaderPtr reader,
       return ret;
   }
 
-  /* FIXME: check */
   attr = xmlTextReaderGetAttribute (reader, (xmlChar *) "src");
+  if (!attr)
+  {
+    dd_log (DUCK_MSG_WARNING, "mal-formed <text> tag");
+    return -1;
+  }
 
   /*
    * splits the text on #.
