@@ -36,9 +36,9 @@ typedef struct node_s {
 
   int item_id;
 
-  char *audio_uri;
-  int   audio_pos_start;
-  int   audio_pos_stop;
+  char *audio_uri;              /* The source to the audio stream         */
+  int   audio_pos_start;        /* The time offset to start playback.     */
+  int   audio_pos_stop;         /* The time offset to stop playback.      */
   char *text_filename;
   char *fragment_identifier;
   char *text_passage;
