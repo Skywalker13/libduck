@@ -146,6 +146,7 @@ smil_parse_text (xmlTextReaderPtr reader,
    * get the anchor url
    */
   textsrc = strtok_r ((char *) attr, "#", &tok);
+  xmlFree (attr);
   if (!textsrc)
     goto err;
 
@@ -172,9 +173,6 @@ smil_parse_text (xmlTextReaderPtr reader,
 #else
   dd_log (DUCK_MSG_WARNING, "XHTML parser for SMIL (unimplemented)");
 #endif /* !0 */
-
-  if (attr)
-    xmlFree (attr);
 
   return ret;
 
