@@ -105,7 +105,6 @@ static const struct {
   int qty;
   void (*fct) (daisydata_t *data, xmlChar *value);
 } dd_metamap[] = {
-  /* TODO: check all entries in the array */
   { { "dc:contributor"      },  TYPE_OPTIONAL,     1, NULL                  },
   { { "dc:creator"          },  TYPE_MANDATORY,    1, meta_creator          },
   { { "dc:coverage"         },  TYPE_OPTIONAL,     1, NULL                  },
@@ -127,28 +126,34 @@ static const struct {
   { { "ncc:depth"           },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:files"           },  TYPE_RECOMMENDED,  1, NULL                  },
   /* FIXME: 'ncc:footnotes' is mandatory if footnote is used */
-  { { "ncc:footnotes"       },  TYPE_OPTIONAL,     1, NULL                  },
+  { { "ncc:footnotes"       },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:generator"       },  TYPE_OPTIONAL,     1, NULL                  },
   { { "ncc:kByteSize"       },  TYPE_OPTIONAL,     1, NULL                  },
   { { "ncc:maxPageNormal"   },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:multimediaType"  },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:narrator"        },  TYPE_RECOMMENDED,  1, meta_narrator         },
-  { { "ncc:pageFront"       },  TYPE_MANDATORY,    1, NULL                  },
-  { { "ncc:pageNormal"      },  TYPE_MANDATORY,    1, NULL                  },
+  { { "ncc:pageFront",
+      "ncc:page-front"      },  TYPE_MANDATORY,    1, NULL                  },
+  { { "ncc:pageNormal",
+      "ncc:page-normal"     },  TYPE_MANDATORY,    1, NULL                  },
+  { { "ncc:pageSpecial",
+      "ncc:page-special"    },  TYPE_MANDATORY,    1, NULL                  },
   /* FIXME: 'ncc:prodNotes' mandatory if producer's note */
-  { { "ncc:prodNotes"       },  TYPE_OPTIONAL,     1, NULL                  },
+  { { "ncc:prodNotes"       },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:producer"        },  TYPE_OPTIONAL,     1, NULL                  },
   { { "ncc:producedDate"    },  TYPE_OPTIONAL,     1, NULL                  },
   { { "ncc:revision"        },  TYPE_OPTIONAL,     1, NULL                  },
   { { "ncc:revisionDate"    },  TYPE_OPTIONAL,     1, NULL                  },
   /* FIXME: 'ncc:setInfo' mandatory if >1 volume */
-  { { "ncc:setInfo"         },  TYPE_RECOMMENDED,  1, NULL                  },
+  { { "ncc:setInfo",
+      "ncc:setinfo"         },  TYPE_RECOMMENDED,  1, NULL                  },
   /* FIXME: 'ncc:sidebars' mandatory if sidebar */
   { { "ncc:sidebars"        },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:sourceDate"      },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:sourceEdition"   },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:sourcePublisher" },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:sourceRights"    },  TYPE_OPTIONAL,     1, NULL                  },
+  { { "ncc:sourceTitle"     },  TYPE_MANDATORY,    1, NULL                  },
   { { "ncc:tocItems",
       "ncc:tocitems",
       "ncc:TOCitems"        },  TYPE_MANDATORY,    1, NULL                  },
