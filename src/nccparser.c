@@ -459,7 +459,6 @@ static const struct {
   int qty;
   int (*fct) (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk);
 } dd_headmap[] = {
-  /* TODO: check all entries in the array */
   { "title",    TYPE_MANDATORY,  1,   ncc_parse_title },
   { "meta",     TYPE_MANDATORY, -1,   ncc_parse_meta  },
 };
@@ -539,7 +538,6 @@ static const struct {
   int qty;
   int (*fct) (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk);
 } dd_rootmap[] = {
-  /* TODO: check all entries in the array */
   { "html",   TYPE_MANDATORY,  0,  NULL            },
   { "head",   TYPE_MANDATORY,  1,  ncc_parse_head  },
   { "body",   TYPE_MANDATORY,  1,  ncc_parse_body  },
