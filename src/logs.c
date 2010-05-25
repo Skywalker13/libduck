@@ -19,7 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-//#include <pthread.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -38,16 +37,13 @@
 #define B_RED    COLOR(41)
 #endif /* USE_LOGCOLOR */
 
-//static pthread_mutex_t g_mutex_verb = PTHREAD_MUTEX_INITIALIZER;
 static duck_verb_t g_verbosity = DUCK_MSG_INFO;
 
 
 void
 dd_log_verb (duck_verb_t level)
 {
-  //pthread_mutex_lock (&g_mutex_verb);
   g_verbosity = level;
-  //pthread_mutex_unlock (&g_mutex_verb);
 }
 
 int
@@ -55,9 +51,7 @@ dd_log_test (duck_verb_t level)
 {
   duck_verb_t verbosity;
 
-  //pthread_mutex_lock (&g_mutex_verb);
   verbosity = g_verbosity;
-  //pthread_mutex_unlock (&g_mutex_verb);
 
   /* do we really want logging ? */
   if (verbosity == DUCK_MSG_NONE)

@@ -166,7 +166,6 @@ void duck_uninit (duck_t *handle);
  *
  * Default value is DUCK_MSG_INFO.
  *
- * \warning This function can be called in anytime.
  * \param[in] level       Level provided by duck_verb_t.
  */
 void duck_verbosity (duck_verb_t level);
