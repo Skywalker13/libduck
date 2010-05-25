@@ -65,10 +65,6 @@ typedef struct smilnode_s {
 
 typedef struct bookinfo_s {
   char *title_text;             /* Title of the book.                     */
-  char *title_audio_uri;        /* The source to the audio stream         */
-  char *title_audio_pos_start;  /* The time offset to start playback.     */
-  char *title_audio_pos_stop;   /* The time offset to stop playback.      */
-  char *title_image;            /* The source to the book image.          */
   char *total_time;             /* The total time of the book.            */
   char *narrator;
   char *author;

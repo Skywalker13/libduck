@@ -202,12 +202,6 @@ dd_daisydata_free (daisydata_t *data)
 
   if (data->book_info.title_text)
     free (data->book_info.title_text);
-  if (data->book_info.title_audio_uri)
-    free (data->book_info.title_audio_uri);
-  if (data->book_info.title_audio_pos_start)
-    free (data->book_info.title_audio_pos_start);
-  if (data->book_info.title_audio_pos_stop)
-    free (data->book_info.title_audio_pos_stop);
   if (data->book_info.total_time)
     free (data->book_info.total_time);
   if (data->book_info.narrator)
