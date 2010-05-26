@@ -621,12 +621,14 @@ dd_ncc_parse (daisydata_t *data, const char *path)
 
  out:
   dd_chk_free (chk);
+  xmlTextReaderClose (reader);
   xmlFreeTextReader (reader);
   return ret;
 
  err:
   dd_log (DUCK_MSG_WARNING, "Failed to parse NCC file: %s", path);
   dd_chk_free (chk);
+  xmlTextReaderClose (reader);
   xmlFreeTextReader (reader);
   return -1;
 }
