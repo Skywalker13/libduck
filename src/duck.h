@@ -39,9 +39,9 @@ extern "C" {
 #define DD_VERSION_DOT(a, b, c) a ##.## b ##.## c
 #define DD_VERSION(a, b, c) DD_VERSION_DOT(a, b, c)
 
-#define LIBDUCK_VERSION_MAJOR  0
+#define LIBDUCK_VERSION_MAJOR  1
 #define LIBDUCK_VERSION_MINOR  0
-#define LIBDUCK_VERSION_MICRO  1
+#define LIBDUCK_VERSION_MICRO  0
 
 #define LIBDUCK_VERSION_INT DD_VERSION_INT(LIBDUCK_VERSION_MAJOR, \
                                            LIBDUCK_VERSION_MINOR, \
