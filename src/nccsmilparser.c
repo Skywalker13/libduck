@@ -210,6 +210,7 @@ smil_parse_audio (xmlTextReaderPtr reader, dd_unused daisydata_t *data,
   tmp_node->audio_uri = strdup ((char *) attr);
 
   /* fetch clip-begin */
+  xmlFree (attr);
   attr = xmlTextReaderGetAttribute (reader, (xmlChar *) "clip-begin");
   if (!attr)
     goto out;
