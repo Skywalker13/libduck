@@ -1,6 +1,6 @@
 /*
  * Duck: a Daisy 2.02 parser API.
- * Copyright (C) 2010 Mathieu Schroeter <mathieu.schroeter@gamesover.ch>
+ * Copyright (C) 2010 Mathieu Schroeter <mathieu@schroetersa.ch>
  *
  * This file is part of libduck.
  *
