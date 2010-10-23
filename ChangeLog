@@ -1,4 +1,6 @@
-2010-05-26  Mathieu Schroeter  <mathieu@schroetersa.ch>
+libduck (1.0)
 
-	* Initial project release (v1.0.0).
-	* Partial support for Daisy 2.02 specifications.
+  1.0.0: 26 May, 2010
+
+    * Initial project release.
+    * Partial support for Daisy 2.02 specifications.
