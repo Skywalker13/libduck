@@ -192,6 +192,31 @@ duck_walk_smil (duck_t *handle, int smilpos)
 }
 
 int
+duck_walk_time (duck_t *handle, int smilpos, int time)
+{
+  int i;
+
+  dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
+  
+  if (!handle || !handle->data)
+    return -1;
+  
+  for (i = 0;; ++i)
+  {
+    if (duck_walk (handle, smilpos, i))
+      return -1;
+   
+    node_t *node_n = handle->data->node_pos;
+    if (!node_n)
+      return -1;
+    
+    if (   time >= node_n->audio_pos_start
+        && time <  node_n->audio_pos_stop)
+      return 0;
+  }
+}
+
+int
 duck_walk (duck_t *handle, int smilpos, int nodepos)
 {
   unsigned int direction;

@@ -213,6 +213,16 @@ int duck_getheading (duck_t *handle, duck_hx_t *hx);
 int duck_walk_smil (duck_t *handle, int smilpos);
 
 /**
+ * \brief Go to the node corresponding to \p time.
+ *
+ * \param[in] handle      Handle.
+ * \param[in] smilpos     Chapter position.
+ * \param[in] time        Time in [ms].
+ * \return 0 for success, != 0 on error.
+ */
+int duck_walk_time (duck_t *handle, int smilpos, int time);
+
+/**
  * \brief Go to a specific chapter and paragraph.
  *
  * \param[in] handle      Handle.
