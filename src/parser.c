@@ -102,6 +102,7 @@ dd_parser_load (const char *path, duck_format_t format)
   {
   /* TODO */
   case DUCK_FORMAT_NCX:
+    free (data);
     return NULL;
 
   /* 2.02 Daisy book */
@@ -113,7 +114,10 @@ dd_parser_load (const char *path, duck_format_t format)
     it = strrchr (path, '/');
     data->path = it ? strndup (path, it - path + 1) : strdup ("./");
     if (!data->path)
+    {
+      free (data);
       return NULL;
+    }
 
     rc = dd_ncc_parse (data, path);
     data->integrity = !!rc;
@@ -121,6 +125,7 @@ dd_parser_load (const char *path, duck_format_t format)
   }
 
   default:
+    free (data);
     dd_log (DUCK_MSG_WARNING, "the file \"%s\" is unknown", path);
     return NULL;
   }
