@@ -175,15 +175,6 @@ duck_walk_smil (duck_t *handle, int smilpos)
     return rc;
 
   node_n = handle->data->node_head;
-  if (!node_n || !handle->data->smil_pos->fragment_identifier)
-    return 0;
-
-  for (; node_n; node_n = node_n->next)
-    if (node_n->fragment_identifier
-        && !strcmp (handle->data->smil_pos->fragment_identifier,
-                    node_n->fragment_identifier))
-      break;
-
   if (!node_n)
     return 0;
 
