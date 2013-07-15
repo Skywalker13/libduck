@@ -73,6 +73,26 @@ node_append (daisydata_t *data)
   return node;
 }
 
+static void
+node_cancel (daisydata_t *data)
+{
+  node_t *node;
+
+  if (!data->node_tail)
+    return;
+  
+  node = data->node_tail->prev;
+  
+  if (!node)
+    data->node_head = NULL;
+  
+  if (data->node_pos == data->node_tail)
+    data->node_pos = NULL;
+  
+  dd_node_free (data->node_tail);
+  data->node_tail = node;
+}
+
 static int
 smil_parse_text (xmlTextReaderPtr reader,
                  daisydata_t *data, node_t *tmp_node, dd_unused chk_t *chk)
@@ -443,6 +463,9 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
    */
 
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
+  
+  if (data->smilfound)
+    return 1;
 
   type = xmlTextReaderNodeType (reader);
   if (type != 1)
@@ -495,7 +518,11 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
 
     NCC_CHECK_FOR (dd_parmap, i)
     {
-      ret = dd_parmap[i].fct (reader, data, tmp_node, chk);
+      /* we skip the following tags if not found */
+      /* FIXME: bugged if the text tag is not the first */
+      if (   !strcmp (dd_parmap[i].str, "text")
+          || (strcmp (dd_parmap[i].str, "text") && data->smilfound))
+        ret = dd_parmap[i].fct (reader, data, tmp_node, chk);
       dd_chk_ok (chk, "par", i);
       break;
     }
@@ -523,7 +550,10 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
     dd_log (DUCK_MSG_ERROR, "failed parsing SMIL <par>, endtag expected");
     return -1;
   }
-
+  
+  if (!data->smilfound)
+    node_cancel (data);
+  
   return ret;
 }
 
