@@ -232,9 +232,11 @@ ncc_parse_title (xmlTextReaderPtr reader,
 
     if (value)
       xmlFree (value);
+    
+    return xmlTextReaderRead (reader);
   }
 
-  return xmlTextReaderRead (reader);
+  return 1;
 }
 
 static int
@@ -282,9 +284,10 @@ ncc_parse_a (xmlTextReaderPtr reader, smilnode_t *smilnode)
 
     if (value)
       xmlFree (value);
+    
+    ret = xmlTextReaderRead (reader);
   }
 
-  ret = xmlTextReaderRead (reader);
  out:
   xmlFree (smilsrc);
   return ret;
