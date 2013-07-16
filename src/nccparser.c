@@ -153,7 +153,8 @@ static const struct {
   { { "ncc:sourceEdition"   },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:sourcePublisher" },  TYPE_RECOMMENDED,  1, NULL                  },
   { { "ncc:sourceRights"    },  TYPE_OPTIONAL,     1, NULL                  },
-  { { "ncc:sourceTitle"     },  TYPE_MANDATORY,    1, NULL                  },
+  /* FIXME: 'ncc:sourceTitle' mandatory only if dc:title differ */
+  { { "ncc:sourceTitle"     },  TYPE_OPTIONAL,     1, NULL                  },
   { { "ncc:tocItems",
       "ncc:tocitems",
       "ncc:TOCitems"        },  TYPE_MANDATORY,    1, NULL                  },
