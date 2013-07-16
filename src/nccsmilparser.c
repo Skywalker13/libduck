@@ -436,6 +436,35 @@ smil_parse_nestedseq_n (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
   return smil_parse_nestedseq (reader, data, NULL, chk);
 }
 
+static int
+skiptag (xmlTextReaderPtr reader, const char *tag)
+{
+  const xmlChar *name = NULL;
+  int ret = 1, type;
+
+  /* while we haven't come to the par closetag */
+  do
+  {
+    ret = xmlTextReaderRead (reader);
+    if (ret != 1)
+      return ret;
+    
+    name = xmlTextReaderConstName (reader);
+    if (!name)
+      return 0;
+  }
+  while (strcasecmp ((char *) name, tag));
+  
+  type = xmlTextReaderNodeType (reader);
+  if (type != 15)
+  {
+    dd_log (DUCK_MSG_ERROR, "failed parsing SMIL <%s>, endtag expected", tag);
+    return -1;
+  }
+  
+  return 1;
+}
+
 static const struct {
   const char *str;
   dd_type_t type;
@@ -465,7 +494,7 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
   
   if (data->smilfound)
-    return 1;
+    return skiptag (reader, "par");
 
   type = xmlTextReaderNodeType (reader);
   if (type != 1)
