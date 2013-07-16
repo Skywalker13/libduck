@@ -399,7 +399,7 @@ smil_parse_nestedseq (xmlTextReaderPtr reader,
     if (!strcasecmp ((char *) name, "par"))
       ret = smil_parse_par (reader, data, chk);
     /* <audio> + */
-    else if (!strcasecmp ((char *) name, "audio"))
+    else if (tmp_node && !strcasecmp ((char *) name, "audio"))
     {
       if (tmp_node->audio_uri)
         tmp_node = node_append (data);
