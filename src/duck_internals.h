@@ -120,6 +120,7 @@ struct duck_s {
             "the tag <%s> is not part of Daisy 2.02 specifications", n);
 
 #define NCC_CHECK(c, t, arr, a)                                               \
+  if (dd_log_test (DUCK_MSG_WARNING))                                         \
   {                                                                           \
     uint8_t qty, i;                                                           \
     for (i = 0; i < ARRAY_NB_ELEMENTS (arr); i++)                             \
