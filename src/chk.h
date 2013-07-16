@@ -25,6 +25,7 @@
 typedef struct chk_s chk_t;
 
 
+/* dd_chk is enabled only with at least a verbosity of DUCK_MSG_WARNING */
 chk_t *dd_chk_new (void);
 void dd_chk_free (chk_t *chk);
 void dd_chk_flush (chk_t *chk, const char *tag);

@@ -23,6 +23,8 @@
 #include <string.h>
 #include <inttypes.h>
 
+#include "duck.h"
+#include "logs.h"
 #include "chk.h"
 
 #define CHK_LIMIT 64
@@ -82,6 +84,9 @@ dd_chk_add (chk_t *chk, const char *tag)
 {
   size_t size = 0;
   struct tag_s *tmp;
+  
+  if (!dd_log_test (DUCK_MSG_WARNING))
+    return;
 
   if (!tag)
     return;
