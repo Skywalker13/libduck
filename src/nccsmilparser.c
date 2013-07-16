@@ -1,6 +1,6 @@
 /*
  * libduck: a Daisy 2.02 parser API.
- * Copyright (C) 2010 Mathieu Schroeter <mathieu@schroetersa.ch>
+ * Copyright (C) 2010-2013 Mathieu Schroeter <mathieu@schroetersa.ch>
  *
  * This parser is freely and fully inspired of the DaisyProject library
  * http://developer.skolelinux.no/info/studentgrupper/2006-hig-daisyplayer/
