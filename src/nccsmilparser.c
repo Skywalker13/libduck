@@ -522,8 +522,10 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
       /* FIXME: bugged if the text tag is not the first */
       if (   !strcmp (dd_parmap[i].str, "text")
           || (strcmp (dd_parmap[i].str, "text") && data->smilfound))
+      {
         ret = dd_parmap[i].fct (reader, data, tmp_node, chk);
-      dd_chk_ok (chk, "par", i);
+        dd_chk_ok (chk, "par", i);
+      }
       break;
     }
 
