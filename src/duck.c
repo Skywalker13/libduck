@@ -170,7 +170,7 @@ duck_walk_smil (duck_t *handle, int smilpos)
   if (!handle || !handle->data)
     return -1;
 
-  rc = duck_walk (handle, smilpos, 1);
+  rc = duck_walk (handle, smilpos, 0);
   if (rc)
     return rc;
 
