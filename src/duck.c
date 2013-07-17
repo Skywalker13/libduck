@@ -192,7 +192,10 @@ duck_walk_time (duck_t *handle, int smilpos, int time)
   if (!handle || !handle->data)
     return -1;
   
-  for (i = 0;; ++i)
+  if (!time)
+    return duck_walk (handle, smilpos, 1);
+  
+  for (i = 1;; ++i)
   {
     if (duck_walk (handle, smilpos, i))
       return -1;
