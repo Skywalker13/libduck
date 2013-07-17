@@ -74,23 +74,20 @@ node_append (daisydata_t *data)
 }
 
 static void
-node_cancel (daisydata_t *data)
-{
-  node_t *node;
-
-  if (!data->node_tail)
+node_cancel (daisydata_t *data, node_t *last_node)
+{  
+  if (last_node)
+  {
+    dd_node_free (last_node->next);
+    last_node->next = NULL;
+    data->node_tail = last_node;
     return;
+  }
   
-  node = data->node_tail->prev;
-  
-  if (!node)
-    data->node_head = NULL;
-  
-  if (data->node_pos == data->node_tail)
-    data->node_pos = NULL;
-  
-  dd_node_free (data->node_tail);
-  data->node_tail = node;
+  dd_node_free (data->node_head);
+  data->node_head = NULL;
+  data->node_pos  = NULL;
+  data->node_tail = NULL;
 }
 
 static int
@@ -98,6 +95,7 @@ smil_parse_text (xmlTextReaderPtr reader,
                  daisydata_t *data, node_t *tmp_node, dd_unused chk_t *chk)
 {
   xmlChar *attr = NULL;
+  xmlChar *tmp;
   const xmlChar *name = NULL;
   char *textsrc = NULL, *fragment = NULL, *tok = NULL;
   int ret = 1;
@@ -111,12 +109,9 @@ smil_parse_text (xmlTextReaderPtr reader,
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
 
   /* go to the fragment identifier point and parses from there. */
+  tmp = xmlTextReaderGetAttribute (reader, (xmlChar *) "id");
   if (!data->smilfound)
   {
-    xmlChar *tmp;
-
-    tmp = xmlTextReaderGetAttribute (reader, (xmlChar *) "id");
-
     /*
      * If the text tag has an id attribute, read it and check wheter it matches
      * the fragmentid. If there is none id attribute, set alreadyfound to 1 and
@@ -133,11 +128,15 @@ smil_parse_text (xmlTextReaderPtr reader,
                   "fragment id (%s) not found in this TEXT tag",
                   data->smil_pos->fragment_identifier);
       }
-
-      xmlFree (tmp);
     }
     else
       data->smilfound = 1;
+  }
+  
+  if (tmp)
+  {
+    tmp_node->id_text = strdup ((char *) tmp);
+    xmlFree (tmp);
   }
 
   if (data->smilfound != 1)
@@ -402,7 +401,13 @@ smil_parse_nestedseq (xmlTextReaderPtr reader,
     else if (tmp_node && !strcasecmp ((char *) name, "audio"))
     {
       if (tmp_node->audio_uri)
+      {
+        const char *id_par  = tmp_node->id_par;
+        const char *id_text = tmp_node->id_text;
         tmp_node = node_append (data);
+        tmp_node->id_par  = strdup (id_par);
+        tmp_node->id_text = strdup (id_text);
+      }
 
       ret = smil_parse_audio (reader, data, tmp_node, chk);
     }
@@ -463,9 +468,6 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
    */
 
   dd_log (DUCK_MSG_VERBOSE, __FUNCTION__);
-  
-  if (data->smilfound)
-    return xmlTextReaderNext (reader);
 
   type = xmlTextReaderNodeType (reader);
   if (type != 1)
@@ -495,8 +497,6 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
                 "fragment id (%s) not found in this PAR tag",
                 data->smil_pos->fragment_identifier);
     }
-
-    xmlFree (tmp);
   }
   else
     data->smilfound = 1;
@@ -510,6 +510,8 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
     return 0;
 
   tmp_node = node_append (data);
+  if (tmp)
+    tmp_node->id_par = strdup ((char *) tmp);
 
   /* while we haven't come to the par closetag */
   while (strcasecmp ((char *) name, "par"))
@@ -518,14 +520,8 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
 
     NCC_CHECK_FOR (dd_parmap, i)
     {
-      /* we skip the following tags if not found */
-      /* FIXME: bugged if the text tag is not the first */
-      if (   !strcmp (dd_parmap[i].str, "text")
-          || (strcmp (dd_parmap[i].str, "text") && data->smilfound))
-      {
-        ret = dd_parmap[i].fct (reader, data, tmp_node, chk);
-        dd_chk_ok (chk, "par", i);
-      }
+      ret = dd_parmap[i].fct (reader, data, tmp_node, chk);
+      dd_chk_ok (chk, "par", i);
       break;
     }
 
@@ -553,9 +549,6 @@ smil_parse_par (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
     return -1;
   }
   
-  if (!data->smilfound)
-    node_cancel (data);
-  
   return ret;
 }
 
@@ -573,7 +566,7 @@ static int
 smil_mainseq (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
 {
   const xmlChar *name = NULL;
-  int ret = 1, type;
+  int ret = 1, type, end = 0;
   /*
    * Attributes:
    *  dur
@@ -604,7 +597,43 @@ smil_mainseq (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
 
     NCC_CHECK_FOR (dd_mainseqmap, i)
     {
+      node_t *last_node = data->node_tail;
+
+      /* case where the first <par> is found */
+      if (!strcasecmp ((char *) name, "par") && data->smilfound)
+      {
+        /* if the last <par> is found too, we skip */
+        if (end)
+        {
+          ret = xmlTextReaderNext (reader);
+          break;
+        }
+        
+        /* continue with the next par */
+        ret = dd_mainseqmap[i].fct (reader, data, chk);
+        
+        /* is this <par> too far? */
+        if (data->smil_pos->next
+            && (   !strcmp (data->smil_pos->next->fragment_identifier,
+                            data->node_tail->id_par)
+                || !strcmp (data->smil_pos->next->fragment_identifier,
+                            data->node_tail->id_text)))
+        {
+          node_cancel (data, last_node);
+          end = 1;
+        }
+        
+        dd_chk_ok (chk, "mainseq", i);
+        break;
+      }
+
+      /* search the first <par> or all <seq> */
       ret = dd_mainseqmap[i].fct (reader, data, chk);
+      
+      /* still not the first, then cancel */
+      if (!strcasecmp ((char *) name, "par") && !data->smilfound)
+        node_cancel (data, last_node);
+
       dd_chk_ok (chk, "mainseq", i);
       break;
     }

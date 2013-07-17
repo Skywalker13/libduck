@@ -157,6 +157,10 @@ dd_node_free (node_t *node)
   while (node)
   {
     tmp = node->next;
+    if (node->id_par)
+      free (node->id_par);
+    if (node->id_text)
+      free (node->id_text);
     if (node->audio_uri)
       free (node->audio_uri);
     if (node->text_filename)

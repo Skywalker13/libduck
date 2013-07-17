@@ -36,6 +36,8 @@ typedef struct node_s {
 
   int item_id;
 
+  char *id_par;
+  char *id_text;
   char *audio_uri;              /* The source to the audio stream         */
   int   audio_pos_start;        /* The time offset to start playback.     */
   int   audio_pos_stop;         /* The time offset to stop playback.      */
