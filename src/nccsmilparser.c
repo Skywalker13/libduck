@@ -614,10 +614,12 @@ smil_mainseq (xmlTextReaderPtr reader, daisydata_t *data, chk_t *chk)
         
         /* is this <par> too far? */
         if (data->smil_pos->next
-            && (   !strcmp (data->smil_pos->next->fragment_identifier,
-                            data->node_tail->id_par)
-                || !strcmp (data->smil_pos->next->fragment_identifier,
-                            data->node_tail->id_text)))
+            && (   (data->node_tail->id_par
+                    && !strcmp (data->smil_pos->next->fragment_identifier,
+                                data->node_tail->id_par))
+                || (data->node_tail->id_text
+                    && !strcmp (data->smil_pos->next->fragment_identifier,
+                                data->node_tail->id_text))))
         {
           node_cancel (data, last_node);
           end = 1;
