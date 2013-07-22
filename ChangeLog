@@ -1,10 +1,14 @@
 libduck (1.1)
 
+  1.1.1: 22 Jul, 2013
+
+    * Fix bugs.
+
   1.1.0: 19 Jul, 2013
 
     * New API function.
     * Many fixes with the SMIL parser.
-    * SOme minor changes.
+    * Some minor changes.
 
 libduck (1.0)
 

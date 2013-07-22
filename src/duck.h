@@ -41,7 +41,7 @@ extern "C" {
 
 #define LIBDUCK_VERSION_MAJOR  1
 #define LIBDUCK_VERSION_MINOR  1
-#define LIBDUCK_VERSION_MICRO  0
+#define LIBDUCK_VERSION_MICRO  1
 
 #define LIBDUCK_VERSION_INT DD_VERSION_INT(LIBDUCK_VERSION_MAJOR, \
                                            LIBDUCK_VERSION_MINOR, \
