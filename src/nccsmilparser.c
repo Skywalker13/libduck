@@ -405,8 +405,8 @@ smil_parse_nestedseq (xmlTextReaderPtr reader,
         const char *id_par  = tmp_node->id_par;
         const char *id_text = tmp_node->id_text;
         tmp_node = node_append (data);
-        tmp_node->id_par  = strdup (id_par);
-        tmp_node->id_text = strdup (id_text);
+        tmp_node->id_par  = id_par  ? strdup (id_par)  : NULL;
+        tmp_node->id_text = id_text ? strdup (id_text) : NULL;
       }
 
       ret = smil_parse_audio (reader, data, tmp_node, chk);
