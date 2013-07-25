@@ -1,5 +1,9 @@
 libduck (1.1)
 
+  1.1.2: 25 Jul, 2013
+
+    * Fix crash with some SMIL files.
+
   1.1.1: 22 Jul, 2013
 
     * Fix bugs.
