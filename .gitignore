@@ -1,0 +1,10 @@
+*.o
+*.so*
+*.depend
+*.a
+*.swp
+*~
+config.log
+config.mak
+libduck.pc
+libduck-test
