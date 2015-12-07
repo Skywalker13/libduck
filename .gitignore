@@ -8,3 +8,8 @@ config.log
 config.mak
 libduck.pc
 libduck-test
+/debian/*/
+/debian/files
+/debian/*.log
+/debian/*.substvars
+/DOCS/doxygen/
