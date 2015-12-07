@@ -1,3 +1,12 @@
+libduck (1.1.2-1) stretch; urgency=low
+
+  * Fix crash with some SMIL files.
+  * New API function.
+  * Many fixes with the SMIL parser.
+  * Some minor changes.
+
+ -- Mathieu Schroeter <mathieu@schroetersa.ch>  Mon, 7 Dec 2015 21:27:06 +0100
+
 libduck (1.0.0-1) lucid; urgency=low
 
   * Initial release (v1.0.0).
