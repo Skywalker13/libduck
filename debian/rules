@@ -14,3 +14,7 @@ override_dh_auto_configure:
 
 override_dh_strip:
 	dh_strip --dbg-package=libduck-dbg
+
+override_dh_auto_clean:
+	touch config.mak
+	dh_auto_clean
